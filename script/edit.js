@@ -80,6 +80,7 @@ Edit.tbBodyEl.addEventListener('click', function (e) {
   //will handle the Event if the clicked element matches the .btn-warning selector (class of the edit buttons)
   if (e.target.matches('.btn-warning')) {
     editFormEl.classList.remove('hide');
+    clearBreeds(Edit.breedInput);
 
     const btnIdx = Array.from(btnsEdit).findIndex(btn => btn === e.target);
     const curPet = petArr[btnIdx];
