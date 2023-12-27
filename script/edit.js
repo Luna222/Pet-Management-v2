@@ -84,6 +84,6 @@ Edit.tbBodyEl.addEventListener('click', function (e) {
 /**
  * @brief capture real-time changes and handle Type input event
  */
-Edit.typeInput.addEventListener('input', () =>
+Edit.typeInput.addEventListener('change', () =>
   renderBreed(breedArr, Edit.typeInput, Edit.breedInput)
 );
