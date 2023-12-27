@@ -7,16 +7,14 @@
 const Breed = {};
 Breed.breedInput = document.querySelector('#input-breed');
 Breed.typeInput = document.querySelector('#input-type');
+Breed.tbBodyEl = document.querySelector('tbody#tbody');
 
 const btnSubmit = document.querySelector('#submit-btn');
-
-const tbBodyEl = document.querySelector('tbody#tbody');
 const typeDefault = document.querySelector(
   '#input-type > option:first-child'
 ).value;
 
 let count = 0;
-let btnsDelete;
 
 /*******************************************************************************
  * Functions
@@ -24,9 +22,9 @@ let btnsDelete;
 /**
  * @brief retrieve dynamic 'Delete' button elements
  */
-const getBtnsDelete = function () {
-  btnsDelete = document.querySelectorAll('tbody > tr .btn-danger');
-  btnsDelete.forEach(btn => btn.setAttribute('action', 'delete'));
+const getBtnsDeleteBr = function () {
+  Breed.btnsDelete = document.querySelectorAll('tbody > tr .btn-danger');
+  Breed.btnsDelete.forEach(btn => btn.setAttribute('action', 'delete'));
 };
 
 /**
@@ -45,8 +43,8 @@ const renderBreedTable = function (breedArray) {
     <td><button type="button" class="btn btn-danger">Delete</button></td>
   </tr>`;
   });
-  tbBodyEl.innerHTML = tbodyInner;
-  getBtnsDelete();
+  Breed.tbBodyEl.innerHTML = tbodyInner;
+  getBtnsDeleteBr();
 };
 
 /**
@@ -144,12 +142,12 @@ const deleteBreedById = function (breedId) {
 /**
  * @brief initialize default state
  */
-const init = function () {
-  //render table data as loading the page
+const initBreed = function () {
+  //render Breed table data as loading the page
   renderBreedTable(breedArr);
 };
 //call init functions, will be executed when loading the page
-init();
+initBreed();
 
 /*******************************************************************************
  * Handle Events
@@ -162,7 +160,8 @@ btnSubmit.addEventListener('click', function (e) {
   e.preventDefault();
   //get data inputs from form & store them into object data
   const data = {
-    id: `BR${(++count + '').padStart(3, 0)}`,
+    //make up Breed Id for at least N thousands records
+    id: `BR${(++count + '').padStart(4, 0)}`,
     breed: Breed.breedInput.value,
     type: Breed.typeInput.value,
   };
@@ -181,10 +180,12 @@ btnSubmit.addEventListener('click', function (e) {
 /**
  * @brief handle deleting Breed event using Event Delegation
  */
-tbBodyEl.addEventListener('click', function (e) {
+Breed.tbBodyEl.addEventListener('click', function (e) {
   //will handle the Event if the clicked element matches the .btn-danger selector (class of the delete buttons)
   if (e.target.matches('.btn-danger')) {
-    const btnIdx = Array.from(btnsDelete).findIndex(btn => btn === e.target);
+    const btnIdx = Array.from(Breed.btnsDelete).findIndex(
+      btn => btn === e.target
+    );
     const curBreed = breedArr[btnIdx];
     deleteBreedById(curBreed?.id);
     //re-write Pet list saved in localStorage

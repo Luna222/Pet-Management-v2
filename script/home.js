@@ -15,7 +15,6 @@ const sterilizedInput = document.querySelector('#input-sterilized');
 const btnSubmit = document.querySelector('#submit-btn');
 const btnShow = document.querySelector('#healthy-btn');
 
-const tbBodyEl = document.querySelector('tbody#tbody');
 const typeDefault = document.querySelector(
   '#input-type > option:first-child'
 ).value;
@@ -27,9 +26,9 @@ const breedDefault = document.querySelector(
 const Home = {};
 Home.breedInput = document.querySelector('#input-breed');
 Home.typeInput = document.querySelector('#input-type');
+Home.tbBodyEl = document.querySelector('tbody#tbody');
 
-let healthyCheck = false;
-let btnBMI, btnsDelete, healthyPetArr;
+let btnBMI;
 
 /*******************************************************************************
  * Functions
@@ -92,67 +91,6 @@ const calcBMI = function (pet) {
     pet.type === 'Dog'
       ? ((pet.weight * 703) / pet.petLength ** 2).toFixed(2)
       : ((pet.weight * 886) / pet.petLength ** 2).toFixed(2);
-};
-
-/**
- * @brief check conditions for a healthy Pet
- *
- * @param {Object} pet
- * @returns {Boolean} - Pets matched the required conditions
- */
-const isHealthy = function (pet) {
-  return pet.vaccinated && pet.dewormed && pet.sterilized;
-};
-
-/**
- * @brief retrieve dynamic 'Delete' button elements
- */
-const getBtnsDelete = function () {
-  btnsDelete = document.querySelectorAll('tbody > tr .btn-danger');
-  btnsDelete.forEach(btn => btn.setAttribute('action', 'delete'));
-};
-
-/**
- * @brief render dynamic table data of Pets/ all related to table displays
- */
-const renderTableData = function () {
-  healthyPetArr = petArr.filter(isHealthy);
-  const petArray = healthyCheck === false ? petArr : healthyPetArr;
-  let tbodyInner = ``;
-
-  petArray.forEach(pet => {
-    tbodyInner += `<tr>
-    <th scope="row">${pet.id}</th>
-    <td>${pet.name}</td>
-    <td>${pet.age}</td>
-    <td>${pet.type}</td>
-    <td>${pet.weight} kg</td>
-    <td>${pet.petLength} cm</td>
-    <td>${pet.breed}</td>
-    <td>
-      <i class="bi bi-square-fill" style="color: ${pet.color}"></i>
-    </td>
-    <td><i class="${
-      pet.vaccinated === true
-        ? 'bi bi-check-circle-fill'
-        : 'bi bi-x-circle-fill'
-    }"></i></td>
-    <td><i class="${
-      pet.dewormed === true ? 'bi bi-check-circle-fill' : 'bi bi-x-circle-fill'
-    }"></i></td>
-    <td><i class="${
-      pet.sterilized === true
-        ? 'bi bi-check-circle-fill'
-        : 'bi bi-x-circle-fill'
-    }"></i></td>
-    <td>${pet.bmi}</td>
-    <td>${pet.dateAdded}</td>
-    <td><button type="button" class="btn btn-danger">Delete</button>
-    </td>
-  </tr>`;
-  });
-  tbBodyEl.innerHTML = tbodyInner;
-  getBtnsDelete();
 };
 
 /**
@@ -368,7 +306,7 @@ const deletePetById = function (petId) {
   if (petIndex > -1) {
     if (confirm('❗️Are you sure to delete this Pet?')) {
       petArr.splice(petIndex, 1);
-      renderTableData();
+      renderTableData(HOME_PAGE)(Home.tbBodyEl);
       alert('Pet deleted!');
     }
   } else {
@@ -393,7 +331,7 @@ const init = function () {
   addCol('BMI');
 
   //render table data as loading the page
-  renderTableData();
+  renderTableData(HOME_PAGE)(Home.tbBodyEl);
 };
 //call init functions, will be executed when loading the page
 init();
@@ -439,7 +377,7 @@ btnSubmit.addEventListener('click', function (e) {
     healthyCheck = false;
     displayBtnShow();
 
-    renderTableData();
+    renderTableData(HOME_PAGE)(Home.tbBodyEl);
     alert('Pet added!');
   }
 });
@@ -447,7 +385,7 @@ btnSubmit.addEventListener('click', function (e) {
 /**
  * @brief handle deleting Pet event using Event Delegation
  */
-tbBodyEl.addEventListener('click', function (e) {
+Home.tbBodyEl.addEventListener('click', function (e) {
   //will handle the Event if the clicked element matches the .btn-danger selector (class of the delete buttons)
   if (e.target.matches('.btn-danger')) {
     const btnIdx = Array.from(btnsDelete).findIndex(btn => btn === e.target);
@@ -467,7 +405,7 @@ btnShow.addEventListener('click', function () {
   healthyCheck = !healthyCheck;
 
   displayBtnShow();
-  renderTableData();
+  renderTableData(HOME_PAGE)(Home.tbBodyEl);
 });
 
 /**
@@ -477,7 +415,7 @@ btnBMI.addEventListener('click', function () {
   petArr.forEach(pet => calcBMI(pet));
   //re-write Pet list saved in localStorage
   saveToStorage(KEY_PET, petArr);
-  renderTableData();
+  renderTableData(HOME_PAGE)(Home.tbBodyEl);
 });
 
 /**
