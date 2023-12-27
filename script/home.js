@@ -249,7 +249,7 @@ const clearInput = () => {
   weightInput.value = '';
   lengthInput.value = '';
   colorInput.value = '#212529';
-  breedInput.value = breedDefault;
+  Home.breedInput.value = breedDefault;
   clearBreeds(Home.breedInput);
   vaccinatedInput.checked = false;
   dewormedInput.checked = false;
