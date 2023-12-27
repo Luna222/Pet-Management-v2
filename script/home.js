@@ -318,7 +318,7 @@ btnSubmit.addEventListener('click', function (e) {
     weight: parseInt(weightInput.value),
     petLength: parseInt(lengthInput.value),
     color: colorInput.value,
-    breed: breedInput.value,
+    breed: Home.breedInput.value,
     vaccinated: vaccinatedInput.checked,
     dewormed: dewormedInput.checked,
     sterilized: sterilizedInput.checked,
