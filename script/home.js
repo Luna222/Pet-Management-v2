@@ -68,6 +68,9 @@ const addCol = function (colName) {
  * @param {Array} breedArray - current Breed list
  */
 const renderBreed = function (breedArray) {
+  //clear all Bread options BEFORE rendering
+  clearBreeds();
+
   const breedNamesOfType = breedArray
     .filter(br => br.type === Home.typeInput.value)
     .map(breedType => breedType.breed);
@@ -325,6 +328,15 @@ const validateData = function (petData) {
 };
 
 /**
+ * @brief clear all Breed options from Type input
+ */
+const clearBreeds = function () {
+  Array.from(Home.breedInput.children).forEach(opt => {
+    if (opt.textContent !== breedDefault) opt.remove();
+  });
+};
+
+/**
  * @brief clear all data inputs of the latest Pet from form
  */
 const clearInput = () => {
@@ -336,9 +348,7 @@ const clearInput = () => {
   lengthInput.value = '';
   colorInput.value = '#212529';
   Home.breedInput.value = breedDefault;
-  Array.from(Home.breedInput.children).forEach(opt => {
-    if (opt.textContent !== breedDefault) opt.remove();
-  });
+  clearBreeds();
   vaccinatedInput.checked = false;
   dewormedInput.checked = false;
   sterilizedInput.checked = false;
