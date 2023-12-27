@@ -2,9 +2,6 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-//select DOM elements
-const sidebarBtnBurger = document.getElementById('sidebar-title');
-const sidebarEl = document.getElementById('sidebar');
 
 /*******************************************************************************
  * Functions

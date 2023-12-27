@@ -2,6 +2,10 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+//select DOM elements
+const sidebarBtnBurger = document.getElementById('sidebar-title');
+const sidebarEl = document.getElementById('sidebar');
+
 const KEY_PET = 'petArr';
 const KEY_BREED = 'breedArr';
 
@@ -88,6 +92,10 @@ const getBtnsDelete = function () {
 
 /**
  * @brief render dynamic table data of Pets/ all related to table displays according to pages
+ *
+ * @param {String} page
+ *
+ * @returns {Function}
  */
 const renderTableData = function (page) {
   let petArray = petArr;
@@ -106,6 +114,9 @@ const renderTableData = function (page) {
       action = 'Edit';
   }
 
+  /**
+   * @param {Element} tbBodyEl
+   */
   return function (tbBodyEl) {
     petArray.forEach(pet => {
       tbodyInner += `<tr>

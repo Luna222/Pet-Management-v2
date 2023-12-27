@@ -6,9 +6,11 @@
 const idInput = document.querySelector('#input-id');
 const nameInput = document.querySelector('#input-name');
 const ageInput = document.querySelector('#input-age');
+const typeInput = document.querySelector('#input-type');
 const weightInput = document.querySelector('#input-weight');
 const lengthInput = document.querySelector('#input-length');
 const colorInput = document.querySelector('#input-color-1');
+const breedInput = document.querySelector('#input-breed');
 const vaccinatedInput = document.querySelector('#input-vaccinated');
 const dewormedInput = document.querySelector('#input-dewormed');
 const sterilizedInput = document.querySelector('#input-sterilized');
@@ -24,8 +26,6 @@ const breedDefault = document.querySelector(
 
 //create a namespace to distinguish different DOM elements of the SAME names
 const Home = {};
-Home.breedInput = document.querySelector('#input-breed');
-Home.typeInput = document.querySelector('#input-type');
 Home.tbBodyEl = document.querySelector('tbody#tbody');
 
 let btnBMI;
@@ -71,13 +71,13 @@ const renderBreed = function (breedArray) {
   clearBreeds();
 
   const breedNamesOfType = breedArray
-    .filter(br => br.type === Home.typeInput.value)
+    .filter(br => br.type === typeInput.value)
     .map(breedType => breedType.breed);
 
   breedNamesOfType.forEach(function (brName) {
     const option = document.createElement('option');
     option.textContent = brName;
-    Home.breedInput.appendChild(option);
+    breedInput.appendChild(option);
   });
 };
 
@@ -269,7 +269,7 @@ const validateData = function (petData) {
  * @brief clear all Breed options from Type input
  */
 const clearBreeds = function () {
-  Array.from(Home.breedInput.children).forEach(opt => {
+  Array.from(breedInput.children).forEach(opt => {
     if (opt.textContent !== breedDefault) opt.remove();
   });
 };
@@ -281,11 +281,11 @@ const clearInput = () => {
   idInput.value = '';
   nameInput.value = '';
   ageInput.value = '';
-  Home.typeInput.value = typeDefault;
+  typeInput.value = typeDefault;
   weightInput.value = '';
   lengthInput.value = '';
   colorInput.value = '#212529';
-  Home.breedInput.value = breedDefault;
+  breedInput.value = breedDefault;
   clearBreeds();
   vaccinatedInput.checked = false;
   dewormedInput.checked = false;
@@ -350,11 +350,11 @@ btnSubmit.addEventListener('click', function (e) {
     id: idInput.value,
     name: nameInput.value,
     age: parseInt(ageInput.value),
-    type: Home.typeInput.value,
+    type: typeInput.value,
     weight: parseInt(weightInput.value),
     petLength: parseInt(lengthInput.value),
     color: colorInput.value,
-    breed: Home.breedInput.value,
+    breed: breedInput.value,
     vaccinated: vaccinatedInput.checked,
     dewormed: dewormedInput.checked,
     sterilized: sterilizedInput.checked,
@@ -421,4 +421,4 @@ btnBMI.addEventListener('click', function () {
 /**
  * @brief capture real-time changes and handle Type input event
  */
-Home.typeInput.addEventListener('change', () => renderBreed(breedArr));
+typeInput.addEventListener('change', () => renderBreed(breedArr));

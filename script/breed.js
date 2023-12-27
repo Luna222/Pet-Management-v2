@@ -8,9 +8,8 @@ const Breed = {};
 Breed.breedInput = document.querySelector('#input-breed');
 Breed.typeInput = document.querySelector('#input-type');
 Breed.tbBodyEl = document.querySelector('tbody#tbody');
-
-const btnSubmit = document.querySelector('#submit-btn');
-const typeDefault = document.querySelector(
+Breed.btnSubmit = document.querySelector('#submit-btn');
+Breed.typeDefault = document.querySelector(
   '#input-type > option:first-child'
 ).value;
 
@@ -74,7 +73,7 @@ const validateBreed = function (petBreed) {
 const validateType = function (petType) {
   let isValid = true;
   //check if type field is invalid
-  if (petType === typeDefault) {
+  if (petType === Breed.typeDefault) {
     alert('Please input for Type!');
     isValid = false;
   }
@@ -113,7 +112,7 @@ const validateData = function (breedData) {
  */
 const clearInput = () => {
   Breed.breedInput.value = '';
-  Breed.typeInput.value = typeDefault;
+  Breed.typeInput.value = Breed.typeDefault;
 };
 
 /**
@@ -155,7 +154,7 @@ initBreed();
 /**
  * @brief handle adding Breed event
  */
-btnSubmit.addEventListener('click', function (e) {
+Breed.btnSubmit.addEventListener('click', function (e) {
   //prevent the page from re-loading after hitting 'Submit' button
   e.preventDefault();
   //get data inputs from form & store them into object data
