@@ -7,6 +7,19 @@ const editFormEl = document.getElementById('container-form');
 
 //create a namespace to distinguish different DOM elements of the SAME names
 const Edit = {};
+Edit.idInput = document.querySelector('#input-id');
+Edit.nameInput = document.querySelector('#input-name');
+Edit.ageInput = document.querySelector('#input-age');
+Edit.typeInput = document.querySelector('#input-type');
+Edit.weightInput = document.querySelector('#input-weight');
+Edit.lengthInput = document.querySelector('#input-length');
+Edit.colorInput = document.querySelector('#input-color-1');
+Edit.breedInput = document.querySelector('#input-breed');
+Edit.vaccinatedInput = document.querySelector('#input-vaccinated');
+Edit.dewormedInput = document.querySelector('#input-dewormed');
+Edit.sterilizedInput = document.querySelector('#input-sterilized');
+Edit.btnSubmit = document.querySelector('#submit-btn');
+
 Edit.tbBodyEl = document.querySelector('tbody#tbody');
 
 /*******************************************************************************
@@ -24,10 +37,21 @@ const resetForm = function () {
  *
  * @param {String} petId
  */
-const startEditPet = function (petId) {
-  const curPet = petArr.find(pet => pet.id === petId);
-
-  const fillForm = function () {};
+const startEditPet = function (pet) {
+  const fillForm = function () {
+    Edit.idInput.value = pet.id;
+    Edit.nameInput.value = pet.name;
+    Edit.ageInput.value = pet.age;
+    Edit.typeInput.value = pet.type;
+    Edit.weightInput.value = pet.weight;
+    Edit.lengthInput.value = pet.petLength;
+    Edit.colorInput.value = pet.color;
+    Edit.breedInput.value = pet.breed;
+    Edit.vaccinatedInput.checked = pet.vaccinated;
+    Edit.dewormedInput.checked = pet.dewormed;
+    Edit.sterilizedInput.checked = pet.sterilized;
+  };
+  fillForm();
 };
 
 /**
@@ -50,5 +74,9 @@ Edit.tbBodyEl.addEventListener('click', function (e) {
   //will handle the Event if the clicked element matches the .btn-warning selector (class of the edit buttons)
   if (e.target.matches('.btn-warning')) {
     editFormEl.classList.remove('hide');
+
+    const btnIdx = Array.from(btnsEdit).findIndex(btn => btn === e.target);
+    const curPet = petArr[btnIdx];
+    startEditPet(curPet);
   }
 });
