@@ -93,6 +93,7 @@ const renderTableData = function (page) {
   let petArray = petArr;
   let tbodyInner = ``;
 
+  //setups
   switch (page) {
     case HOME_PAGE:
       btnType = 'danger';
@@ -133,7 +134,7 @@ const renderTableData = function (page) {
           ? 'bi bi-check-circle-fill'
           : 'bi bi-x-circle-fill'
       }"></i></td>
-      <td>${pet.bmi}</td>
+      ${page === HOME_PAGE ? `<td>${pet.bmi}</td>` : ''}
       <td>${pet.dateAdded}</td>
       <td><button type="button" class="btn btn-${btnType}">${action}</button>
       </td>
