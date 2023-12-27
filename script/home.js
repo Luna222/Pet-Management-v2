@@ -6,26 +6,19 @@
 const idInput = document.querySelector('#input-id');
 const nameInput = document.querySelector('#input-name');
 const ageInput = document.querySelector('#input-age');
-const typeInput = document.querySelector('#input-type');
 const weightInput = document.querySelector('#input-weight');
 const lengthInput = document.querySelector('#input-length');
 const colorInput = document.querySelector('#input-color-1');
-const breedInput = document.querySelector('#input-breed');
 const vaccinatedInput = document.querySelector('#input-vaccinated');
 const dewormedInput = document.querySelector('#input-dewormed');
 const sterilizedInput = document.querySelector('#input-sterilized');
 const btnSubmit = document.querySelector('#submit-btn');
 const btnShow = document.querySelector('#healthy-btn');
 
-const typeDefault = document.querySelector(
-  '#input-type > option:first-child'
-).value;
-const breedDefault = document.querySelector(
-  '#input-breed > option:first-child'
-).value;
-
 //create a namespace to distinguish different DOM elements of the SAME names
 const Home = {};
+Home.typeInput = document.querySelector('#input-type');
+Home.breedInput = document.querySelector('#input-breed');
 Home.tbBodyEl = document.querySelector('tbody#tbody');
 
 let btnBMI;
@@ -59,26 +52,6 @@ const addCol = function (colName) {
   th.textContent = colName;
   //add new label right after 'Sterilized'
   document.querySelector('thead tr > th:nth-child(11)').after(th);
-};
-
-/**
- * @brief render options for Breeds in form (according to pet Types)
- *
- * @param {Array} breedArray - current Breed list
- */
-const renderBreed = function (breedArray) {
-  //clear all Bread options BEFORE rendering
-  clearBreeds();
-
-  const breedNamesOfType = breedArray
-    .filter(br => br.type === typeInput.value)
-    .map(breedType => breedType.breed);
-
-  breedNamesOfType.forEach(function (brName) {
-    const option = document.createElement('option');
-    option.textContent = brName;
-    breedInput.appendChild(option);
-  });
 };
 
 /**
@@ -266,27 +239,18 @@ const validateData = function (petData) {
 };
 
 /**
- * @brief clear all Breed options from Type input
- */
-const clearBreeds = function () {
-  Array.from(breedInput.children).forEach(opt => {
-    if (opt.textContent !== breedDefault) opt.remove();
-  });
-};
-
-/**
  * @brief clear all data inputs of the latest Pet from form
  */
 const clearInput = () => {
   idInput.value = '';
   nameInput.value = '';
   ageInput.value = '';
-  typeInput.value = typeDefault;
+  Home.typeInput.value = typeDefault;
   weightInput.value = '';
   lengthInput.value = '';
   colorInput.value = '#212529';
   breedInput.value = breedDefault;
-  clearBreeds();
+  clearBreeds(Home.breedInput);
   vaccinatedInput.checked = false;
   dewormedInput.checked = false;
   sterilizedInput.checked = false;
@@ -350,7 +314,7 @@ btnSubmit.addEventListener('click', function (e) {
     id: idInput.value,
     name: nameInput.value,
     age: parseInt(ageInput.value),
-    type: typeInput.value,
+    type: Home.typeInput.value,
     weight: parseInt(weightInput.value),
     petLength: parseInt(lengthInput.value),
     color: colorInput.value,
@@ -421,4 +385,6 @@ btnBMI.addEventListener('click', function () {
 /**
  * @brief capture real-time changes and handle Type input event
  */
-typeInput.addEventListener('change', () => renderBreed(breedArr));
+Home.typeInput.addEventListener('change', () =>
+  renderBreed(breedArr, Home.typeInput, Home.breedInput)
+);

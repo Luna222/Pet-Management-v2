@@ -6,6 +6,9 @@
 const sidebarBtnBurger = document.getElementById('sidebar-title');
 const sidebarEl = document.getElementById('sidebar');
 
+const typeDefault = 'Select Type';
+const breedDefault = 'Select Breed';
+
 const KEY_PET = 'petArr';
 const KEY_BREED = 'breedArr';
 
@@ -154,6 +157,35 @@ const renderTableData = function (page) {
     tbBodyEl.innerHTML = tbodyInner;
     page === HOME_PAGE ? getBtnsDelete() : getBtnsEdit();
   };
+};
+
+/**
+ * @brief clear all Breed options from Type input
+ */
+const clearBreeds = function (breedInput) {
+  Array.from(breedInput.children).forEach(opt => {
+    if (opt.textContent !== breedDefault) opt.remove();
+  });
+};
+
+/**
+ * @brief render options for Breeds in form (according to pet Types)
+ *
+ * @param {Array} breedArray - current Breed list
+ */
+const renderBreed = function (breedArray, typeInput, breedInput) {
+  //clear all Bread options BEFORE rendering
+  clearBreeds(breedInput);
+
+  const breedNamesOfType = breedArray
+    .filter(br => br.type === typeInput.value)
+    .map(breedType => breedType.breed);
+
+  breedNamesOfType.forEach(function (brName) {
+    const option = document.createElement('option');
+    option.textContent = brName;
+    breedInput.appendChild(option);
+  });
 };
 
 /*******************************************************************************

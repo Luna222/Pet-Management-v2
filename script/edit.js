@@ -80,3 +80,10 @@ Edit.tbBodyEl.addEventListener('click', function (e) {
     startEditPet(curPet);
   }
 });
+
+/**
+ * @brief capture real-time changes and handle Type input event
+ */
+Edit.typeInput.addEventListener('input', () =>
+  renderBreed(breedArr, Edit.typeInput, Edit.breedInput)
+);
