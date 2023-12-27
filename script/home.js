@@ -383,7 +383,7 @@ btnBMI.addEventListener('click', function () {
 });
 
 /**
- * @brief capture real-time changes and handle Type input event
+ * @brief handle Type input event when the user has made a selection
  */
 Home.typeInput.addEventListener('change', () =>
   renderBreed(breedArr, Home.typeInput, Home.breedInput)

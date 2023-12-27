@@ -46,7 +46,13 @@ const startEditPet = function (pet) {
     Edit.weightInput.value = pet.weight;
     Edit.lengthInput.value = pet.petLength;
     Edit.colorInput.value = pet.color;
-    Edit.breedInput.value = pet.breed;
+
+    //select the correct value in the Breed select element
+    const option = document.createElement('option');
+    option.textContent = pet.breed;
+    Edit.breedInput.appendChild(option);
+    option.selected = true;
+
     Edit.vaccinatedInput.checked = pet.vaccinated;
     Edit.dewormedInput.checked = pet.dewormed;
     Edit.sterilizedInput.checked = pet.sterilized;
@@ -82,8 +88,15 @@ Edit.tbBodyEl.addEventListener('click', function (e) {
 });
 
 /**
- * @brief capture real-time changes and handle Type input event
+ * @brief handle Type input event when the user has made a selection
  */
 Edit.typeInput.addEventListener('change', () =>
+  renderBreed(breedArr, Edit.typeInput, Edit.breedInput)
+);
+
+/**
+ * @brief handle Breed input event when the user has made the active focus on this field
+ */
+Edit.breedInput.addEventListener('focus', () =>
   renderBreed(breedArr, Edit.typeInput, Edit.breedInput)
 );
