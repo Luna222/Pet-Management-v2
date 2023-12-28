@@ -30,8 +30,37 @@ let curPet;
 /**
  * @brief reset the original state of the Edit form: hidden
  */
-const resetForm = function () {
-  editFormEl.classList.add('hide');
+const resetForm = () => editFormEl.classList.add('hide');
+
+/**
+ * @brief clear focuses from fields in form
+ */
+const clearFieldFocus = function () {
+  Edit.nameInput.blur();
+  Edit.ageInput.blur();
+  Edit.typeInput.blur();
+  Edit.weightInput.blur();
+  Edit.lengthInput.blur();
+  Edit.colorInput.blur();
+  Edit.breedInput.blur();
+};
+
+/**
+ * @brief validate all required inputs from form
+ *
+ * @param {Object} petData - all data inputs of a Pet from form
+ *
+ * @returns {Boolean}
+ */
+const validatePetData = function () {
+  return (
+    validateName(Edit.nameInput.value) &&
+    validateAge(parseInt(Edit.ageInput.value)) &&
+    validateType(Edit.typeInput.value) &&
+    validateWeight(parseInt(Edit.weightInput.value)) &&
+    validateLength(parseInt(Edit.lengthInput.value)) &&
+    validateBreed(Edit.breedInput.value)
+  );
 };
 
 /**
@@ -119,13 +148,6 @@ Edit.ageInput.addEventListener('blur', () => {
 });
 
 /**
- * @brief refill type input field when it loses focus w/o changes
- */
-Edit.typeInput.addEventListener('blur', () => {
-  if (Edit.typeInput.value === typeDefault) Edit.typeInput.value = curPet.type;
-});
-
-/**
  * @brief refill weight input field when it loses focus w/o changes
  */
 Edit.weightInput.addEventListener('blur', () => {
@@ -140,36 +162,31 @@ Edit.lengthInput.addEventListener('blur', () => {
 });
 
 /**
- * @brief refill breed input field when it loses focus w/o changes
- */
-Edit.breedInput.addEventListener('blur', () => {
-  if (Edit.breedInput.value === breedDefault)
-    Edit.breedInput.value = curPet.breed;
-});
-
-/**
  * @brief handle submiting Pet editing event
  */
 Edit.btnSubmit.addEventListener('click', function (e) {
+  clearFieldFocus();
+
   //prevent the page from re-loading after hitting 'Submit' button
   e.preventDefault();
 
-  //if valadate data:
-  //update the current Pet in petArr, then save to localStorage
-  curPet.name = Edit.nameInput.value;
-  curPet.age = Edit.ageInput.value;
-  curPet.type = Edit.typeInput.value;
-  curPet.weight = Edit.weightInput.value;
-  curPet.petLength = Edit.lengthInput.value;
-  curPet.color = Edit.colorInput.value;
-  curPet.breed = Edit.breedInput.value;
-  curPet.vaccinated = Edit.vaccinatedInput.checked;
-  curPet.dewormed = Edit.dewormedInput.checked;
-  curPet.sterilized = Edit.sterilizedInput.checked;
+  //validate data inputs, then update the current Pet in petArr & save to localStorage
+  if (validatePetData()) {
+    curPet.name = Edit.nameInput.value;
+    curPet.age = parseInt(Edit.ageInput.value);
+    curPet.type = Edit.typeInput.value;
+    curPet.weight = parseInt(Edit.weightInput.value);
+    curPet.petLength = parseInt(Edit.lengthInput.value);
+    curPet.color = Edit.colorInput.value;
+    curPet.breed = Edit.breedInput.value;
+    curPet.vaccinated = Edit.vaccinatedInput.checked;
+    curPet.dewormed = Edit.dewormedInput.checked;
+    curPet.sterilized = Edit.sterilizedInput.checked;
 
-  saveToStorage(KEY_PET, petArr);
-  resetForm();
+    saveToStorage(KEY_PET, petArr);
+    resetForm();
 
-  renderTableData(EDIT_PAGE)(Edit.tbBodyEl);
-  alert('Pet updated!');
+    renderTableData(EDIT_PAGE)(Edit.tbBodyEl);
+    alert('Pet updated!');
+  }
 });

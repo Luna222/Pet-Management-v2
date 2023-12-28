@@ -75,158 +75,13 @@ const displayBtnShow = function () {
 };
 
 /**
- * @brief validate Id input from form
- *
- * @param {String} petId - petId input from form
- *
- * @returns {Boolean}
- */
-const validateId = function (petId) {
-  let isValid = true;
-  //check if id field is empty
-  if (petId === '') {
-    alert('Please input for Pet ID!');
-    isValid = false;
-  }
-
-  //check if id already existed
-  for (let i = 0; i < petArr.length; i++) {
-    if (petArr[i].id === petId) {
-      alert('ID must be unique!');
-      isValid = false;
-    }
-  }
-  return isValid;
-};
-
-/**
- * @brief validate Name input from form
- *
- * @param {String} petName - pet Name input from form
- *
- * @returns {Boolean}
- */
-const validateName = function (petName) {
-  let isValid = true;
-  //check if name field is empty
-  if (petName === '') {
-    alert('Please input for Pet Name!');
-    isValid = false;
-  }
-  return isValid;
-};
-
-/**
- * @brief validate Age input from form
- *
- * @param {String} petAge - pet Age input from form
- *
- * @returns {Boolean}
- */
-const validateAge = function (petAge) {
-  let isValid = true;
-  //check if age field is empty
-  if (!petAge) {
-    alert('Please input for Age!');
-    isValid = false;
-  }
-
-  //check age range
-  if (petAge < 1 || petAge > 15) {
-    alert('Age must be between 1 and 15!');
-    isValid = false;
-  }
-  return isValid;
-};
-
-/**
- * @brief validate Type input from form
- *
- * @param {String} petType - pet Type input from form
- *
- * @returns {Boolean}
- */
-const validateType = function (petType) {
-  let isValid = true;
-  //check if type field is invalid
-  if (petType === typeDefault) {
-    alert('Please input for Type!');
-    isValid = false;
-  }
-  return isValid;
-};
-
-/**
- * @brief validate Weight input from form
- *
- * @param {String} petWeight - pet Weight input from form
- *
- * @returns {Boolean}
- */
-const validateWeight = function (petWeight) {
-  let isValid = true;
-  //check if weight field is empty
-  if (!petWeight) {
-    alert('Please input for Weight!');
-    isValid = false;
-  }
-
-  //check weight range
-  if (petWeight < 1 || petWeight > 15) {
-    alert('Weight must be between 1 and 15!');
-    isValid = false;
-  }
-  return isValid;
-};
-
-/**
- * @brief validate Length input from form
- *
- * @param {String} petLength - pet Length input from form
- *
- * @returns {Boolean}
- */
-const validateLength = function (petLength) {
-  let isValid = true;
-  //check if length field is empty
-  if (!petLength) {
-    alert('Please input for Length!');
-    isValid = false;
-  }
-
-  //check length range
-  if (petLength < 1 || petLength > 100) {
-    alert('Length must be between 1 and 100!');
-    isValid = false;
-  }
-  return isValid;
-};
-
-/**
- * @brief validate Breed input from form
- *
- * @param {String} petBreed - pet Breed input from form
- *
- * @returns {Boolean}
- */
-const validateBreed = function (petBreed) {
-  let isValid = true;
-  //check if breed field is invalid
-  if (petBreed === breedDefault) {
-    alert('Please input for Breed!');
-    isValid = false;
-  }
-  return isValid;
-};
-
-/**
  * @brief validate all required inputs from form
  *
  * @param {Object} petData - all data inputs of a Pet from form
  *
  * @returns {Boolean}
  */
-const validateData = function (petData) {
+const validateAllData = function (petData) {
   return (
     validateId(petData.id) &&
     validateName(petData.name) &&
@@ -328,7 +183,7 @@ btnSubmit.addEventListener('click', function (e) {
   };
 
   //validate data inputs, then add a new pet record & store Pet list in localStorage
-  if (validateData(data)) {
+  if (validateAllData(data)) {
     petArr.push(data);
     saveToStorage(KEY_PET, petArr);
     clearInput();
