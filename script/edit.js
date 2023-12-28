@@ -104,6 +104,20 @@ Edit.breedInput.addEventListener('focus', () =>
   renderBreed(breedArr, Edit.typeInput, Edit.breedInput)
 );
 
+/**
+ * @brief refill name input field when it loses focus w/o changes
+ */
+Edit.nameInput.addEventListener('blur', () => {
+  if (!Edit.nameInput.value) Edit.nameInput.value = curPet.name;
+});
+
+/**
+ * @brief refill age input field when it loses focus w/o changes
+ */
+Edit.ageInput.addEventListener('blur', () => {
+  if (!Edit.ageInput.value) Edit.ageInput.value = curPet.age;
+});
+
 Edit.btnSubmit.addEventListener('click', function (e) {
   //prevent the page from re-loading after hitting 'Submit' button
   e.preventDefault();

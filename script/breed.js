@@ -87,7 +87,7 @@ const validateType = function (petType) {
  *
  * @returns {Boolean}
  */
-const validateData = function (breedData) {
+const validateBreedData = function (breedData) {
   //check if breed already exists
   let isDuplicate = false;
 
@@ -166,7 +166,7 @@ Breed.btnSubmit.addEventListener('click', function (e) {
   };
 
   //validate data inputs, then add a new Breed record & store Breed list in localStorage
-  if (validateData(data)) {
+  if (validateBreedData(data)) {
     breedArr.push(data);
     saveToStorage(KEY_BREED, breedArr);
     clearInput();

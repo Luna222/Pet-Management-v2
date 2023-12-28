@@ -167,7 +167,10 @@ const renderTableData = function (page) {
  * @brief clear all Breed options from Type input
  */
 const clearBreeds = function (breedInput) {
-  Array.from(breedInput.children).forEach(opt => {
+  Array.from(breedInput.children).forEach((opt, _, optList) => {
+    if (optList.filter(opt => opt.textContent === breedDefault).length > 1)
+      opt.remove();
+
     if (opt.textContent !== breedDefault) opt.remove();
   });
 };
