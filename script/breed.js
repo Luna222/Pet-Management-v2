@@ -53,7 +53,7 @@ const renderBreedTable = function (breedArray) {
  *
  * @returns {Boolean}
  */
-const validateBreed = function (petBreed) {
+Breed.validateBreed = function (petBreed) {
   let isValid = true;
   //check if breed field is empty
   if (!petBreed) {
@@ -70,7 +70,7 @@ const validateBreed = function (petBreed) {
  *
  * @returns {Boolean}
  */
-const validateType = function (petType) {
+Breed.validateType = function (petType) {
   let isValid = true;
   //check if type field is invalid
   if (petType === Breed.typeDefault) {
@@ -101,8 +101,8 @@ const validateBreedData = function (breedData) {
   }
 
   return (
-    validateBreed(breedData.breed) &&
-    validateType(breedData.type) &&
+    Breed.validateBreed(breedData.breed) &&
+    Breed.validateType(breedData.type) &&
     isDuplicate === false
   );
 };
