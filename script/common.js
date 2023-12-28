@@ -18,6 +18,7 @@ const KEY_BREED = 'breedArr';
 
 const HOME_PAGE = 'home';
 const EDIT_PAGE = 'edit';
+const SEARCH_PAGE = 'search';
 
 /*
 If the 'petArr' key is not found in localStorage:
@@ -246,11 +247,11 @@ const getBtnsDelete = function () {
  * @brief render dynamic table data of Pets/ all related to table displays according to pages
  *
  * @param {String} page
+ * @param {Array} petArray
  *
  * @returns {Function}
  */
-const renderTableData = function (page) {
-  let petArray = petArr;
+const renderTableData = function (page, petArray = petArr) {
   let tbodyInner = ``;
 
   //setups
@@ -297,14 +298,19 @@ const renderTableData = function (page) {
           ? 'bi bi-check-circle-fill'
           : 'bi bi-x-circle-fill'
       }"></i></td>
-      ${page === HOME_PAGE ? `<td>${pet.bmi}</td>` : ''}
+      ${page === HOME_PAGE || page === SEARCH_PAGE ? `<td>${pet.bmi}</td>` : ''}
       <td>${pet.dateAdded}</td>
-      <td><button type="button" class="btn btn-${btnType}">${action}</button>
-      </td>
+      ${
+        page === HOME_PAGE || page === EDIT_PAGE
+          ? `<td><button type="button" class="btn btn-${btnType}">${action}</button></td>`
+          : ''
+      }
     </tr>`;
     });
     tbBodyEl.innerHTML = tbodyInner;
-    page === HOME_PAGE ? getBtnsDelete() : getBtnsEdit();
+
+    if (page === HOME_PAGE) getBtnsDelete();
+    if (page === EDIT_PAGE) getBtnsEdit();
   };
 };
 
