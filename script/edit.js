@@ -22,6 +22,8 @@ Edit.btnSubmit = document.querySelector('#submit-btn');
 
 Edit.tbBodyEl = document.querySelector('tbody#tbody');
 
+let curPet;
+
 /*******************************************************************************
  * Functions
  ******************************************************************************/
@@ -83,7 +85,7 @@ Edit.tbBodyEl.addEventListener('click', function (e) {
     clearBreeds(Edit.breedInput);
 
     const btnIdx = Array.from(btnsEdit).findIndex(btn => btn === e.target);
-    const curPet = petArr[btnIdx];
+    curPet = petArr[btnIdx];
     startEditPet(curPet);
   }
 });
@@ -101,3 +103,27 @@ Edit.typeInput.addEventListener('change', () =>
 Edit.breedInput.addEventListener('focus', () =>
   renderBreed(breedArr, Edit.typeInput, Edit.breedInput)
 );
+
+Edit.btnSubmit.addEventListener('click', function (e) {
+  //prevent the page from re-loading after hitting 'Submit' button
+  e.preventDefault();
+
+  //if valadate data:
+  //update the current Pet in petArr, then save to localStorage
+  curPet.name = Edit.nameInput.value;
+  curPet.age = Edit.ageInput.value;
+  curPet.type = Edit.typeInput.value;
+  curPet.weight = Edit.weightInput.value;
+  curPet.petLength = Edit.lengthInput.value;
+  curPet.color = Edit.colorInput.value;
+  curPet.breed = Edit.breedInput.value;
+  curPet.vaccinated = Edit.vaccinatedInput.checked;
+  curPet.dewormed = Edit.dewormedInput.checked;
+  curPet.sterilized = Edit.sterilizedInput.checked;
+
+  saveToStorage(KEY_PET, petArr);
+  resetForm();
+
+  renderTableData(EDIT_PAGE)(Edit.tbBodyEl);
+  alert('Pet updated!');
+});
