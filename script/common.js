@@ -339,6 +339,8 @@ const clearBreeds = function (breedInput) {
  * @brief render options for Breeds in form (according to pet Types)
  *
  * @param {Array} breedArray - current Breed list
+ * @param {String} typeInput
+ * @param {String} breedInput
  */
 const renderBreed = function (breedArray, typeInput, breedInput) {
   //clear all Bread options BEFORE rendering

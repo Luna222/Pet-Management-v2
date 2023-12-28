@@ -26,17 +26,48 @@ let resArr;
  * Functions
  ******************************************************************************/
 /**
- * @brief clear all data inputs of the latest Pet from form
+ * @brief render options for ALL Breeds in form
+ *
+ * @param {Array} breedArray - current Breed list
+ * @param {String} breedInput
  */
-const clearSearchInput = () => {
-  Search.idInput.value = '';
-  Search.nameInput.value = '';
-  Search.typeInput.value = typeDefault;
-  Search.breedInput.value = breedDefault;
-  clearBreeds(Search.breedInput);
-  Search.vaccinatedInput.checked = false;
-  Search.dewormedInput.checked = false;
-  Search.sterilizedInput.checked = false;
+const renderAllBreed = function (breedArray, breedInput) {
+  //clear all Bread options BEFORE rendering
+  clearBreeds(breedInput);
+
+  const breedNames = new Set(breedArray.map(br => br.breed));
+
+  [...breedNames].forEach(brName => {
+    const option = document.createElement('option');
+    option.textContent = brName;
+    breedInput.appendChild(option);
+  });
+};
+
+const checkId = pet => pet.id === Search.idInput.value;
+
+const checkName = pet => pet.name === Search.nameInput.value;
+
+const checkType = pet => pet.type === Search.typeInput.value;
+
+const checkBreed = pet => pet.breed === Search.breedInput.value;
+
+const checkVaccinated = pet =>
+  pet.vaccinated === Search.vaccinatedInput.checked;
+
+const checkDewormed = pet => pet.dewormed === Search.dewormedInput.checked;
+
+const checkSterilized = pet =>
+  pet.sterilized === Search.sterilizedInput.checked;
+
+const isPassed = function (pet) {
+  return (
+    checkId(pet) &&
+    checkName(pet) &&
+    checkType(pet) &&
+    checkDewormed(pet) &&
+    checkBreed(pet)
+  );
 };
 
 /**
@@ -53,13 +84,21 @@ initSearch();
  * Handle Events
  ******************************************************************************/
 /**
- * @brief handle finding Pet event according to criteria inputted
+ * @brief handle Breed input event when the user has made the active focus on this field
+ */
+Search.breedInput.addEventListener('focus', () =>
+  renderAllBreed(breedArr, Search.breedInput)
+);
+
+/**
+ * @brief handle finding Pet event according to ALL criteria inputted
  */
 Search.btnFind.addEventListener('click', function (e) {
   //prevent the page from re-loading after hitting 'Submit' button
   e.preventDefault();
 
-  resArr = petArr.filter(pet => pet.id === Search.idInput.value);
+  // resArr = petArr.filter(pet => pet.id === Search.idInput.value);
+  resArr = petArr.filter(isPassed);
 
   //render table data matching the criteria
   renderTableData(SEARCH_PAGE, resArr)(Search.tbBodyEl);
