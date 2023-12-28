@@ -6,8 +6,12 @@
 const sidebarBtnBurger = document.getElementById('sidebar-title');
 const sidebarEl = document.getElementById('sidebar');
 
-const typeDefault = 'Select Type';
-const breedDefault = 'Select Breed';
+const typeDefault = document.querySelector(
+  '#input-type > option:first-child'
+)?.value;
+const breedDefault = document.querySelector(
+  '#input-breed > option:first-child'
+)?.value;
 
 const KEY_PET = 'petArr';
 const KEY_BREED = 'breedArr';
