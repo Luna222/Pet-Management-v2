@@ -118,6 +118,38 @@ Edit.ageInput.addEventListener('blur', () => {
   if (!Edit.ageInput.value) Edit.ageInput.value = curPet.age;
 });
 
+/**
+ * @brief refill type input field when it loses focus w/o changes
+ */
+Edit.typeInput.addEventListener('blur', () => {
+  if (Edit.typeInput.value === typeDefault) Edit.typeInput.value = curPet.type;
+});
+
+/**
+ * @brief refill weight input field when it loses focus w/o changes
+ */
+Edit.weightInput.addEventListener('blur', () => {
+  if (!Edit.weightInput.value) Edit.weightInput.value = curPet.weight;
+});
+
+/**
+ * @brief refill length input field when it loses focus w/o changes
+ */
+Edit.lengthInput.addEventListener('blur', () => {
+  if (!Edit.lengthInput.value) Edit.lengthInput.value = curPet.petLength;
+});
+
+/**
+ * @brief refill breed input field when it loses focus w/o changes
+ */
+Edit.breedInput.addEventListener('blur', () => {
+  if (Edit.breedInput.value === breedDefault)
+    Edit.breedInput.value = curPet.breed;
+});
+
+/**
+ * @brief handle submiting Pet editing event
+ */
 Edit.btnSubmit.addEventListener('click', function (e) {
   //prevent the page from re-loading after hitting 'Submit' button
   e.preventDefault();
