@@ -43,18 +43,6 @@ const addBtnBMI = function (btnName) {
 };
 
 /**
- * @brief create a new label column for the data table
- *
- * @param {String} colName - text content of label
- */
-const addCol = function (colName) {
-  const th = document.createElement('th');
-  th.textContent = colName;
-  //add new label right after 'Sterilized'
-  document.querySelector('thead tr > th:nth-child(11)').after(th);
-};
-
-/**
  * @brief calculate Pet's bmi
  *
  * @param {Object} pet
@@ -137,7 +125,7 @@ const deletePetById = function (petId) {
 /**
  * @brief initialize default state
  */
-const init = function () {
+const initHome = function () {
   //remove 2 sample rows of pet records from HTML
   document
     .querySelectorAll('tbody#tbody > tr')
@@ -153,7 +141,7 @@ const init = function () {
   renderTableData(HOME_PAGE)(Home.tbBodyEl);
 };
 //call init functions, will be executed when loading the page
-init();
+initHome();
 
 /*******************************************************************************
  * Handle Events

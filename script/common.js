@@ -39,6 +39,18 @@ let healthyPetArr, btnType, action, btnsDelete, btnsEdit;
  * Functions
  ******************************************************************************/
 /**
+ * @brief create a new label column for the data table
+ *
+ * @param {String} colName - text content of label
+ */
+const addCol = function (colName) {
+  const th = document.createElement('th');
+  th.textContent = colName;
+  //add new label right after 'Sterilized'
+  document.querySelector('thead tr > th:nth-child(11)').after(th);
+};
+
+/**
  * @brief format Date based on locales
  *
  * @param {Date} date
