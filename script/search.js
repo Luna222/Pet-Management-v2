@@ -69,44 +69,86 @@ const renderAllBreed = function (breedArray, breedInput) {
  *
  * @returns {Boolean} - returns `true` if there is a match, and `false` otherwise
  */
-// const matchChar = (data, query) => {
-//   //creates a regex using the 'i' flag for case-insensitive matching
-//   const regex = new RegExp(query, 'i');
-//   return regex.test(data);
-// };
-
 const matchChar = (data, query) => {
-  return data.includes(query);
+  //trim both special characters and whitespace from the query string
+  const trimmedQuery = query.replace(/[^a-zA-Z0-9]/g, '').replace(/\s/g, '');
+  return data.includes(trimmedQuery);
 };
 
 /**
  * @brief check conditions for Id
  *
- * @param {*} pet
+ * @param {Object} pet
  *
  * @returns {Boolean}
  */
 const checkId = pet =>
-  matchChar(pet.id.toLowerCase(), Search.idInput.value.toLowerCase().trim());
+  matchChar(pet.id.toLowerCase(), Search.idInput.value.toLowerCase());
 
+/**
+ * @brief check conditions for Name
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const checkName = pet =>
-  matchChar(
-    pet.name.toLowerCase(),
-    Search.nameInput.value.toLowerCase().trim()
-  );
+  matchChar(pet.name.toLowerCase(), Search.nameInput.value.toLowerCase());
 
+/**
+ * @brief check conditions for Type
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const checkType = pet => pet.type === Search.typeInput.value;
 
+/**
+ * @brief check conditions for Breed
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const checkBreed = pet => pet.breed === Search.breedInput.value;
 
+/**
+ * @brief check conditions for Vaccinated
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const checkVaccinated = pet =>
   pet.vaccinated === Search.vaccinatedInput.checked;
 
+/**
+ * @brief check conditions for Dewormed
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const checkDewormed = pet => pet.dewormed === Search.dewormedInput.checked;
 
+/**
+ * @brief check conditions for Sterilized
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const checkSterilized = pet =>
   pet.sterilized === Search.sterilizedInput.checked;
 
+/**
+ * @brief check conditions for passing through ALL criteria
+ *
+ * @param {Object} pet
+ *
+ * @returns {Boolean}
+ */
 const isPassed = function (pet) {
   let check = true;
   if (isEmptyForm()) check = false;
@@ -140,6 +182,9 @@ const isPassed = function (pet) {
   return check;
 };
 
+/**
+ * @brief add 'criterion' class to ALL input & select elements in the form
+ */
 const addCriterionClass = function () {
   const className = 'criterion';
   document
@@ -185,9 +230,7 @@ Search.btnFind.addEventListener('click', function (e) {
       input.value && input.value !== typeDefault && input.value !== breedDefault
   );
 
-  // resArr = petArr.filter(pet => pet.id === Search.idInput.value);
   resArr = petArr.filter(isPassed);
-
   //render table data matching the criteria
   renderTableData(SEARCH_PAGE, resArr)(Search.tbBodyEl);
 });
