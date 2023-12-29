@@ -11,22 +11,13 @@ const btnExport = document.querySelector('#export-btn');
  * Functions
  ******************************************************************************/
 /**
- * @brief validate Pet data
+ * @brief validate JSON format of Pets
  *
- * @param {Object} petData - all data inputs of a Pet from form
+ * @param {String} jsonString
  *
  * @returns {Boolean}
  */
-const validatePetData = function (petData) {
-  return (
-    validateName(petData.name) &&
-    validateAge(petData.age) &&
-    validateType(petData.type) &&
-    validateWeight(petData.weight) &&
-    validateLength(petData.petLength) &&
-    validateBreed(petData.breed)
-  );
-};
+const validatePetJSON = function (jsonString) {};
 
 /**
  * @brief save the JSON data as a file
@@ -41,15 +32,16 @@ const saveDataToFile = function (data, fileType, fileName) {
 };
 
 /**
+ * @brief update Pet records & save to localStorage
  *
- * @param {*} arr
+ * @param {Array} arr
  */
 const updatePetRecords = function (arr) {
   // Get the first selected file
   const selectedfile = fileInput.files[0];
   let fileContent;
 
-  const parseFileContent = function () {
+  const parseSaveFileContent = function () {
     //read the file contents asynchronously
     if (selectedfile) {
       const reader = new FileReader();
@@ -58,12 +50,12 @@ const updatePetRecords = function (arr) {
         try {
           fileContent = JSON.parse(e.target.result);
 
-          fileContent.forEach(pet => {
-            if (validatePetData(pet)) arr.push(pet);
+          fileContent.forEach(fPet => {
+            arr.push(fPet);
           });
+
           //re-write Pet list saved in localStorage
           saveToStorage(KEY_PET, arr);
-          console.log(fileContent);
         } catch (error) {
           // Handle the error
           alert('Error occurred while parsing JSON:', error);
@@ -78,7 +70,7 @@ const updatePetRecords = function (arr) {
     }
   };
 
-  parseFileContent();
+  parseSaveFileContent();
 };
 
 /*******************************************************************************
@@ -100,11 +92,12 @@ btnExport.addEventListener('click', function (e) {
 });
 
 /**
- * @brief handle importing Pets event: update Pet records & save to localStorage
+ * @brief handle importing Pets event
  */
 btnImport.addEventListener('click', function (e) {
   //prevent the page from re-loading after hitting button
   e.preventDefault();
 
+  //update Pet records & save to localStorage
   updatePetRecords(petArr);
 });
