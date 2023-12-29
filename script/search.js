@@ -61,9 +61,11 @@ const renderAllBreed = function (breedArray, breedInput) {
   });
 };
 
-const checkId = pet => pet.id === Search.idInput.value;
+const checkId = pet =>
+  pet.id.toLowerCase() === Search.idInput.value.toLowerCase().trim();
 
-const checkName = pet => pet.name === Search.nameInput.value;
+const checkName = pet =>
+  pet.name.toLowerCase() === Search.nameInput.value.toLowerCase().trim();
 
 const checkType = pet => pet.type === Search.typeInput.value;
 

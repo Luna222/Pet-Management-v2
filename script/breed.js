@@ -161,7 +161,7 @@ Breed.btnSubmit.addEventListener('click', function (e) {
   const data = {
     //make up Breed Id for at least N thousands records
     id: `BR${(++count + '').padStart(4, 0)}`,
-    breed: Breed.breedInput.value,
+    breed: Breed.breedInput.value.trim(),
     type: Breed.typeInput.value,
   };
 

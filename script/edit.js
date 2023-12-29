@@ -172,7 +172,7 @@ Edit.btnSubmit.addEventListener('click', function (e) {
 
   //validate data inputs, then update the current Pet in petArr & save to localStorage
   if (validatePetData()) {
-    curPet.name = Edit.nameInput.value;
+    curPet.name = Edit.nameInput.value.trim();
     curPet.age = parseInt(Edit.ageInput.value);
     curPet.type = Edit.typeInput.value;
     curPet.weight = parseInt(Edit.weightInput.value);

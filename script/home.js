@@ -154,8 +154,8 @@ btnSubmit.addEventListener('click', function (e) {
   e.preventDefault();
   //get data inputs from form & store them into object data
   const data = {
-    id: idInput.value,
-    name: nameInput.value,
+    id: idInput.value.trim(),
+    name: nameInput.value.trim(),
     age: parseInt(ageInput.value),
     type: Home.typeInput.value,
     weight: parseInt(weightInput.value),
