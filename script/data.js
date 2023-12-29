@@ -100,4 +100,5 @@ btnImport.addEventListener('click', function (e) {
 
   //update Pet records & save to localStorage
   updatePetRecords(petArr);
+  alert('Data imported!');
 });
