@@ -26,6 +26,23 @@ let criteria, resArr;
  * Functions
  ******************************************************************************/
 /**
+ * @brief check if the form is empty
+ *
+ * @returns {Boolean}
+ */
+const isEmptyForm = function () {
+  return (
+    Search.typeInput.value == typeDefault &&
+    Search.breedInput.value == breedDefault &&
+    !Search.idInput.value &&
+    !Search.nameInput.value &&
+    !Search.vaccinatedInput.checked &&
+    !Search.dewormedInput.checked &&
+    !Search.sterilizedInput.checked
+  );
+};
+
+/**
  * @brief render options for ALL Breeds in form
  *
  * @param {Array} breedArray - current Breed list
@@ -62,6 +79,7 @@ const checkSterilized = pet =>
 
 const isPassed = function (pet) {
   let check = true;
+  if (isEmptyForm()) check = false;
 
   criteria.forEach(cr => {
     switch (cr) {
