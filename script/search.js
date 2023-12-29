@@ -61,11 +61,39 @@ const renderAllBreed = function (breedArray, breedInput) {
   });
 };
 
+/**
+ * @brief check characters included in the query input
+ *
+ * @param {String} data - Pet data
+ * @param {String} query - query input from form
+ *
+ * @returns {Boolean} - returns `true` if there is a match, and `false` otherwise
+ */
+// const matchChar = (data, query) => {
+//   //creates a regex using the 'i' flag for case-insensitive matching
+//   const regex = new RegExp(query, 'i');
+//   return regex.test(data);
+// };
+
+const matchChar = (data, query) => {
+  return data.includes(query);
+};
+
+/**
+ * @brief check conditions for Id
+ *
+ * @param {*} pet
+ *
+ * @returns {Boolean}
+ */
 const checkId = pet =>
-  pet.id.toLowerCase() === Search.idInput.value.toLowerCase().trim();
+  matchChar(pet.id.toLowerCase(), Search.idInput.value.toLowerCase().trim());
 
 const checkName = pet =>
-  pet.name.toLowerCase() === Search.nameInput.value.toLowerCase().trim();
+  matchChar(
+    pet.name.toLowerCase(),
+    Search.nameInput.value.toLowerCase().trim()
+  );
 
 const checkType = pet => pet.type === Search.typeInput.value;
 
