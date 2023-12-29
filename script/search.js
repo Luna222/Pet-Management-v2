@@ -76,15 +76,15 @@ const isPassed = function (pet) {
         break;
       case Search.breedInput:
         if (!checkBreed(pet)) check = false;
-        break;
-      case Search.vaccinatedInput:
-        if (!checkVaccinated(pet)) check = false;
-        break;
-      case Search.dewormedInput:
-        if (!checkDewormed(pet)) check = false;
-        break;
-      case Search.sterilizedInput:
-        if (!checkSterilized(pet)) check = false;
+      //   break;
+      // case Search.vaccinatedInput:
+      //   if (!checkVaccinated(pet)) check = false;
+      //   break;
+      // case Search.dewormedInput:
+      //   if (!checkDewormed(pet)) check = false;
+      //   break;
+      // case Search.sterilizedInput:
+      //   if (!checkSterilized(pet)) check = false;
     }
   });
   return check;
@@ -132,9 +132,7 @@ Search.btnFind.addEventListener('click', function (e) {
 
   criteria = Array.from(document.querySelectorAll('.criterion')).filter(
     input =>
-      input.value !== '' &&
-      input.value !== typeDefault &&
-      input.value !== breedDefault
+      input.value && input.value !== typeDefault && input.value !== breedDefault
   );
 
   // resArr = petArr.filter(pet => pet.id === Search.idInput.value);
