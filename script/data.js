@@ -56,6 +56,7 @@ const updatePetRecords = function (arr) {
 
           //re-write Pet list saved in localStorage
           saveToStorage(KEY_PET, arr);
+          alert('Data imported!');
         } catch (error) {
           // Handle the error
           alert('Error occurred while parsing JSON:', error);
@@ -100,5 +101,4 @@ btnImport.addEventListener('click', function (e) {
 
   //update Pet records & save to localStorage
   updatePetRecords(petArr);
-  alert('Data imported!');
 });
