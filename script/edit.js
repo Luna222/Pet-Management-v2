@@ -48,8 +48,6 @@ const clearFieldFocus = function () {
 /**
  * @brief validate all required inputs from form
  *
- * @param {Object} petData - all data inputs of a Pet from form
- *
  * @returns {Boolean}
  */
 const validatePetData = function () {
@@ -183,6 +181,7 @@ Edit.btnSubmit.addEventListener('click', function (e) {
     curPet.dewormed = Edit.dewormedInput.checked;
     curPet.sterilized = Edit.sterilizedInput.checked;
 
+    //re-write Pet list saved in localStorage
     saveToStorage(KEY_PET, petArr);
     resetForm();
 
