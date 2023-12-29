@@ -76,15 +76,17 @@ const isPassed = function (pet) {
         break;
       case Search.breedInput:
         if (!checkBreed(pet)) check = false;
-      //   break;
-      // case Search.vaccinatedInput:
-      //   if (!checkVaccinated(pet)) check = false;
-      //   break;
-      // case Search.dewormedInput:
-      //   if (!checkDewormed(pet)) check = false;
-      //   break;
-      // case Search.sterilizedInput:
-      //   if (!checkSterilized(pet)) check = false;
+        break;
+      case Search.vaccinatedInput:
+        if (Search.vaccinatedInput.checked && !checkVaccinated(pet))
+          check = false;
+        break;
+      case Search.dewormedInput:
+        if (Search.dewormedInput.checked && !checkDewormed(pet)) check = false;
+        break;
+      case Search.sterilizedInput:
+        if (Search.sterilizedInput.checked && !checkSterilized(pet))
+          check = false;
     }
   });
   return check;
