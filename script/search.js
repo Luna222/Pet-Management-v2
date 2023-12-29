@@ -20,7 +20,7 @@ Search.btnFind = document.querySelector('#find-btn');
 
 Search.tbBodyEl = document.querySelector('tbody#tbody');
 
-let resArr;
+let criteria, resArr;
 
 /*******************************************************************************
  * Functions
@@ -61,19 +61,52 @@ const checkSterilized = pet =>
   pet.sterilized === Search.sterilizedInput.checked;
 
 const isPassed = function (pet) {
-  return (
-    checkId(pet) &&
-    checkName(pet) &&
-    checkType(pet) &&
-    checkDewormed(pet) &&
-    checkBreed(pet)
-  );
+  let check = true;
+
+  criteria.forEach(cr => {
+    switch (cr) {
+      case Search.idInput:
+        if (!checkId(pet)) check = false;
+        break;
+      case Search.nameInput:
+        if (!checkName(pet)) check = false;
+        break;
+      case Search.typeInput:
+        if (!checkType(pet)) check = false;
+        break;
+      case Search.breedInput:
+        if (!checkBreed(pet)) check = false;
+        break;
+      case Search.vaccinatedInput:
+        if (!checkVaccinated(pet)) check = false;
+        break;
+      case Search.dewormedInput:
+        if (!checkDewormed(pet)) check = false;
+        break;
+      case Search.sterilizedInput:
+        if (!checkSterilized(pet)) check = false;
+    }
+  });
+  return check;
+};
+
+const addCriterionClass = function () {
+  const className = 'criterion';
+  document
+    .querySelectorAll('form input')
+    .forEach(input => input.classList.add(className));
+
+  document
+    .querySelectorAll('form select')
+    .forEach(sel => sel.classList.add(className));
 };
 
 /**
  * @brief initialize default state
  */
 const initSearch = function () {
+  //add crirerion class to inputs in the form
+  addCriterionClass();
   //add BMI column to table
   addCol('BMI');
 };
@@ -96,6 +129,13 @@ Search.breedInput.addEventListener('focus', () =>
 Search.btnFind.addEventListener('click', function (e) {
   //prevent the page from re-loading after hitting 'Submit' button
   e.preventDefault();
+
+  criteria = Array.from(document.querySelectorAll('.criterion')).filter(
+    input =>
+      input.value !== '' &&
+      input.value !== typeDefault &&
+      input.value !== breedDefault
+  );
 
   // resArr = petArr.filter(pet => pet.id === Search.idInput.value);
   resArr = petArr.filter(isPassed);
