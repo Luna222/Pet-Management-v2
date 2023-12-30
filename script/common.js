@@ -85,6 +85,15 @@ const formatDate = function (date) {
 };
 
 /**
+ * @brief sort Pets by Date added in DESC/latest Date order
+ *
+ * @param {Array} arr
+ */
+const sortByDateDesc = function (arr) {
+  arr.sort((pet1, pet2) => pet2.dateAdded - pet1.dateAdded);
+};
+
+/**
  * @brief validate Id input from form
  *
  * @param {String} petId - petId input from form
