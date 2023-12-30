@@ -1,0 +1,18 @@
+Tabby
+Ragdoll
+Maine Coon
+Siamese
+Sphynx
+Domestic Medium Hair
+Persian
+Golden British Shorthair
+Mixed Breed
+Domestic Short Hair
+Terrier
+Greyhound
+Rottweiler
+Husky
+Alaskan Malamute
+Samoyed
+Poodle
+Golden Retriever
