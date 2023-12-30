@@ -90,7 +90,7 @@ const formatDate = function (date) {
  * @param {Array} arr
  */
 const sortByDateDesc = function (arr) {
-  arr.sort((pet1, pet2) => pet2.dateAdded - pet1.dateAdded);
+  arr.sort((pet1, pet2) => new Date(pet2.dateAdded) - new Date(pet1.dateAdded));
 };
 
 /**
