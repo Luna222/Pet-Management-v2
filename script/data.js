@@ -11,15 +11,6 @@ const btnExport = document.querySelector('#export-btn');
  * Functions
  ******************************************************************************/
 /**
- * @brief validate JSON format of Pets
- *
- * @param {String} jsonString
- *
- * @returns {Boolean}
- */
-const validatePetJSON = function (jsonString) {};
-
-/**
  * @brief save the JSON data as a file
  *
  * @param {Array} data - in JSON-like format
