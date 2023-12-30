@@ -50,6 +50,12 @@ const updatePetRecords = function (arr) {
         try {
           fileContent = JSON.parse(e.target.result);
 
+          //for pet data that has the same ID as an existing pet, overwrite it with the NEW data:
+          arr.forEach((pet, idx) => {
+            if (fileContent.find(fPet => fPet.id === pet.id))
+              arr.splice(idx, 1);
+          });
+
           fileContent.forEach(fPet => {
             arr.push(fPet);
           });
