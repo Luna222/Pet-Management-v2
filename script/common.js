@@ -33,7 +33,7 @@ If the 'breedArr' key is not found in localStorage:
 const breedArr = getFromStorage(KEY_BREED, []);
 
 let healthyCheck = false;
-let healthyPetArr, btnType, action, btnsDelete, btnsEdit;
+let healthyPetArr, btnsDelete, btnsEdit;
 
 /*******************************************************************************
  * Functions
@@ -282,6 +282,7 @@ const getBtnsDelete = function () {
  * @returns {Function}
  */
 const renderTableData = function (page, petArray = petArr) {
+  let btnType, action;
   let tbodyInner = ``;
 
   //setups
