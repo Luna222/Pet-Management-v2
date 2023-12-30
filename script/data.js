@@ -51,14 +51,10 @@ const updatePetRecords = function (arr) {
           fileContent = JSON.parse(e.target.result);
 
           //for pet data that has the same ID as an existing pet, overwrite it with the NEW data:
-          arr.forEach((pet, idx) => {
-            if (fileContent.find(fPet => fPet.id === pet.id))
-              arr.splice(idx, 1);
-          });
-
-          fileContent.forEach(fPet => {
-            arr.push(fPet);
-          });
+          arr = arr.filter(
+            pet => !fileContent.some(fPet => fPet.id === pet.id)
+          );
+          arr.push(...fileContent);
 
           //re-write Pet list saved in localStorage
           saveToStorage(KEY_PET, arr);
