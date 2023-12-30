@@ -297,6 +297,9 @@ const renderTableData = function (page, petArray = petArr) {
       action = 'Edit';
   }
 
+  //sort Pets by date added
+  sortByDateDesc(petArray);
+
   /**
    * @param {Element} tbBodyEl
    */

@@ -47,8 +47,7 @@ const updatePetRecords = function (arr) {
           );
           arr.push(...fileContent);
 
-          //sort Pets by date added, re-write Pet list saved in localStorage
-          sortByDateDesc(arr);
+          //re-write Pet list saved in localStorage
           saveToStorage(KEY_PET, arr);
           alert('Data imported!');
         } catch (error) {
